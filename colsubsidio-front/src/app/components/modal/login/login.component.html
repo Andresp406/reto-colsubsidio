@@ -1,0 +1,57 @@
+
+  <div class="modal-content">
+    <div class="modal-header bg-success p-2 text-dark bg-opacity-50">
+      <div class="text-center exo pt-4" style="font-size: 36px">{{ title }}</div>
+      <app-button-close
+        (cerrarModal)="cerrar($event)"
+        [addClassTopRight]="true"
+      ></app-button-close>
+      <div class="p-3">
+        
+        <div class="mt-0 exo p-2 mb-0 text-center">
+          <a class="" (click)="cerrar(true)" href="javascript:void(0)"> </a>.
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="forma" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="userName"
+            aria-describedby="userName"
+            placeholder="Usuario"
+          />
+          <app-validations-errors
+            class="mt-2 mb-2"
+            [forma]="forma"
+            formControlLabel="userName"
+            [minlenght]="3"
+          ></app-validations-errors>
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            aria-describedby="password"
+            placeholder="Contraseña"
+          />
+          <app-validations-errors
+            class="mt-2 mb-2"
+            [forma]="forma"
+            formControlLabel="password"
+            [minlenght]="3"
+          ></app-validations-errors>
+        </div>      
+        
+      </form>
+    </div>
+    <div class="modal-footer bg-info p-2 text-dark bg-opacity-50">
+      <button type="submit" [disabled]="forma.invalid" class="btn btn-primary">Iniciar Sesion</button>
+      <a class="cursor-pointer" href="javascript:void(0);" (click)="register.open()" (click)="cerrar(true)">Quiero registrarme</a>
+    </div>
+  </div>
+  <app-base-modal #register [target]="'register'"></app-base-modal>

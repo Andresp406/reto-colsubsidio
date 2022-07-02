@@ -1,0 +1,55 @@
+<div class="col-sm-3 text-center mt-5 mb-2">
+  <button class="btn btn-primary"
+  (click)="createClient.open()" >Crear Estudiante</button>
+</div>
+<div class="card border-success mb-3 container " >
+    <div class="card-header">Estudiantes</div>
+    <div class="card-body text-success">
+      <h5 class="card-title">Listado de Estudiantes</h5>
+      <table class="table table-striped" *ngIf="clients.length > 0;" aria-describedby="">
+          <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+                <th>Zona Horaria</th>
+                <th>Acciones</th>
+            </tr>
+          </thead>
+          <ngx-spinner
+            bdColor="rgba(51,51,51,0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-scale-multiple"
+          >
+            
+            <p style="font-size: 20px; color: white">Loading...</p></ngx-spinner
+          >
+          <tbody>
+            <tr *ngFor="let client of clients">
+                <td>{{client.id}}</td>
+                <td>{{client.firstName | uppercase}}</td>
+                <td>{{client.lastName | uppercase}}</td>
+                <td>{{client.phone }}</td>
+                <td>{{client.address | uppercase}}</td>
+                <td> 
+                  <a (click)="editClient.open(client)" style="cursor: pointer;"><fa-icon [icon]="icons[0]"></fa-icon></a>
+                  <a (click)="showClient.open(client)" style="cursor: pointer;"><fa-icon [icon]="icons[1]"></fa-icon></a>
+                  <a (click)="deleteClient(client)" style="cursor: pointer;"><fa-icon [icon]="icons[2]"></fa-icon></a>
+                </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="clients.length == 0;">
+    <div class="alert alert-danger container" >
+        <p>No hay clientes registrados en base de datos</p>
+    </div>
+</div>
+<app-base-modal #createClient [target]="'createClient'" (generic)="clientUpdate()"></app-base-modal>
+<app-base-modal #editClient [target]="'editClient'" (generic)="clientUpdate()"></app-base-modal>
+<app-base-modal #showClient [target]="'showClient'"></app-base-modal>

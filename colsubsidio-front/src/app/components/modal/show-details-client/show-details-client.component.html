@@ -1,0 +1,57 @@
+ <div class="modal " tabindex="-1" role="dialog" style="display:block; width: 100%;">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ title }}</h5>
+          <app-button-close
+          (cerrarModal)="closeModal()"
+          [addClassTopRight]="true"
+        ></app-button-close>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row row-cols-3">
+                <div class="col-sm-12">
+                    <ul *ngIf="client" class="list-group text-dark mb-3">
+                        <li class="list-group-item active text-center">INFORMACION DEL ESTUDIANTE</li>
+                        <li class="list-group-item text-center">{{client.firstName | uppercase}}</li>
+                        <li class="list-group-item text-center">{{client.lastName | uppercase}}</li>
+                        <li class="list-group-item text-center">{{client.phone}}</li>
+                        <li class="list-group-item text-center">{{client.address | uppercase}}</li>
+                        <li class="list-group-item text-center">{{client?.photo}}</li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-12">
+      
+                 <!-- <div class="alert alert-info my-4" *ngIf="student?.exam?.question?.length == 0">
+                    No hay facturas asignadas para el cliente {{student.name}} {{student.lastName}}
+                  </div>-->
+                  <div class="card">
+                    <div class="card-header text-center">
+                        NOTAS DEL ESTUDIANTE
+                    </div>
+                    <div class="alert alert-info" *ngIf="account.length == 0 && resp.length == 0">
+                      No hay informacion de notas
+                    </div>
+                    <!--ul class="list-group list-group-flush" *ngIf="question.length > 0 && resp.length > 0">
+                      <li class="list-group-item active text-center">Examen {{client.exam?.id}}  Respuestas:</li>
+                      <li class="list-group-item text-center">{{question[0]}} : {{resp[0]?.opcion}}  </li>
+                      <li class="list-group-item text-center">{{question[1]}} : {{resp[1]?.opcion}}</li>
+                      <li class="list-group-item text-center">{{question[2]}} : {{resp[2]?.opcion}}</li>
+                      <li class="list-group-item text-center">{{question[3]}} : {{resp[3]?.opcion}}</li>
+                      <li class="list-group-item text-center">{{question[4]}} : {{resp[4]?.opcion}}</li>
+                    </ul-->
+                  </div>
+                </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 

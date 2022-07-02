@@ -1,0 +1,36 @@
+<ng-template #divModal let-modal>
+    <div class="rounded-0 bg-white">
+      <div>
+        
+        <app-register
+          *ngIf="target === 'register'"
+          (cerrarModal)="modal.close()" 
+          (studentUpdate)="testFunction($event)"        
+        ></app-register>
+
+        <app-edit-client
+          *ngIf="target === 'editClient'"
+          (cerrarModal)="modal.close()"  
+          [client]="data"  
+          (clientUpdate)="testFunction($event)"     
+        ></app-edit-client>
+
+     
+          <app-show-details-client
+          *ngIf="target === 'showClient'"
+          (cerrarModal)="modal.close()"  
+          [client]="data"
+          [exam]="temp"  
+          (clientUpdate)="testFunction($event)"     
+        ></app-show-details-client>
+
+
+        <app-login
+        *ngIf="target === 'login'"
+        (cerrarModal)="modal.close()"  
+        (clientUpdate)="testFunction($event)"     
+      ></app-login>
+      
+      </div>
+    </div>
+</ng-template>

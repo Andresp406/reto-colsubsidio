@@ -1,0 +1,19 @@
+<small class="alert alert-danger mb-2 form-control exo text-field shadow-none" role="alert" *ngIf="selectorName?.hasError('required') && selectorName?.touched ">
+    El  campo es requerido 
+  </small>
+  
+  <small class="alert alert-danger mb-2 form-control exo text-field shadow-none" role="alert" *ngIf="selectorName?.hasError('maxlength') && !selectorName?.pristine && selectorName?.touched">
+    El  campo no puede exceder {{maxlenght}} caracteres
+  </small>
+  
+  <small class="alert alert-danger mb-2 form-control exo text-field shadow-none" role="alert" *ngIf="selectorName?.hasError('minlength') && !selectorName?.pristine && selectorName?.touched">
+    El  campo de ser mayor a {{minlenght}} caracteres
+  </small>
+  
+  <small class="alert alert-danger mb-2 form-control exo text-field shadow-none" role="alert" *ngIf="selectorName?.hasError('email') && !selectorName?.pristine && selectorName?.touched">
+     El formato no es valido
+  </small>
+  
+
+  
+  
