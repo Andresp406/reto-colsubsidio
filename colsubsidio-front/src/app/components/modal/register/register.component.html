@@ -80,13 +80,17 @@
         </div>
 
         <div class="mb-3">
+          <div class="input-group">
           <input
+            #password
             type="password"
             class="form-control"
             formControlName="password"
             aria-describedby="password"
             placeholder="Contraseña"
           />
+          <a class="btn btn-outline-secondary" (click)="showPassword('password')"><fa-icon [icon]="faEye"></fa-icon></a>
+        </div>
           <app-validations-errors
             class="mt-2 mb-2"
             [forma]="forma"
@@ -95,27 +99,29 @@
           ></app-validations-errors>
         </div>
 
-        <div class="mb-3 input-group">
-          <input
-            #password
-            type="password"
-            class="form-control"
-            formControlName="passwordConfirmed"
-            aria-describedby="passwordConfirmed"
-            placeholder="Confirmar Contraseña"
-          />
-          <button class="btn btn-outline-secondary" (click)="showPassword()">ver</button>
+        <div class="mb-3 ">
+          <div class="input-group">
+            <input
+              #passwordConfirmed
+              type="password"
+              class="form-control"
+              formControlName="passwordConfirmed"
+              aria-describedby="passwordConfirmed"
+              placeholder="Confirmar Contraseña"
+            />
+            <a class="btn btn-outline-secondary" (click)="showPassword('passwordConfirmed')"><fa-icon [icon]="faEye"></fa-icon></a>
+          </div>
           <app-validations-errors
-            class="mt-2 mb-2"
-            [forma]="forma"
-            formControlLabel="passwordConfirmed"
-            [minlenght]="3"
+          class="mt-2 mb-2"
+          [forma]="forma"
+          formControlLabel="passwordConfirmed"
+          [minlenght]="3"
           ></app-validations-errors>
         </div>
+        <button type="submit" [disabled]="forma.valid" class="btn btn-primary form-control">Registrar</button>
       </form>
     </div>
     <div class="modal-footer bg-info p-2 text-dark bg-opacity-50">
-      <button type="submit" [disabled]="forma.invalid" class="btn btn-primary">Registrar</button>
       <a class="cursor-pointer" href="javascript:void(0);" (click)="login.open()" (click)="cerrar(true)">Ya estoy registrado</a>
     </div>
   </div>

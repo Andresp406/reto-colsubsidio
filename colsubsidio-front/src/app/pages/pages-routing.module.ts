@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateExamComponent } from './create-exam/create-exam.component';
-import { ExamComponent } from './exam/exam.component';
+import { MovementComponent } from '../components/movement/movement.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ClientComponent } from './client/client.component';
 
@@ -11,11 +11,11 @@ const routes:Routes =[
     children:[
       {
         path:'create-exam',
-        component:CreateExamComponent
+        component:MovementComponent
       },
-      {
-        path:'exam',
-        component:ExamComponent
+      { 
+        path:'dashboard', 
+        component:DashboardComponent
       },
       {
         path:'home',

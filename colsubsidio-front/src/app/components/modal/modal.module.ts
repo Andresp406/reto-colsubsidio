@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { ShowDetailsClientComponent } from './show-details-client/show-details-client.component';
 import { ButtonCloseComponent } from './button-close/button-close.component';
 import { LoginComponent } from './login/login.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -30,6 +31,7 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     RouterModule,
+    FontAwesomeModule
 
   ],
   exports:[

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   forma:FormGroup;
   title:string = 'Iniciar Sesion';
+  faEye=faEye;
+  @ViewChild('password', {static:false}) password!:ElementRef<HTMLInputElement>;
   @Output() cerrarModal = new EventEmitter<boolean>();
 
   constructor() {
@@ -27,6 +30,14 @@ export class LoginComponent implements OnInit {
 
   cerrar(event:boolean){
     this.cerrarModal.emit(event);
+  }
+
+  showPassword(args:string){
+    if (this.password.nativeElement.type === 'password'){
+      this.password.nativeElement.type = "text";
+    }else{
+      this.password.nativeElement.type = "password";
+    }
   }
 
 }

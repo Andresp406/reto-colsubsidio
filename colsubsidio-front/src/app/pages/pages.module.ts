@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateExamComponent } from './create-exam/create-exam.component';
-import { ExamComponent } from './exam/exam.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { ClientComponent } from './client/client.component';
 import { HomeComponent } from './home/home.component';
 import { ModalModule } from '../components/modal/modal.module';
@@ -14,8 +13,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
   declarations: [
-    CreateExamComponent,
-    ExamComponent,
+    DashboardComponent,
     ClientComponent,
     HomeComponent,
   ],
@@ -30,8 +28,7 @@ import { PagesRoutingModule } from './pages-routing.module';
     PagesRoutingModule
   ],
   exports:[
-    CreateExamComponent,
-    ExamComponent,
+    DashboardComponent,
     ClientComponent,
     HomeComponent,
   ]

@@ -32,13 +32,17 @@
         </div>
 
         <div class="mb-3">
-          <input
+          <div class="input-group">
+            <input
+            #password
             type="password"
             class="form-control"
             formControlName="password"
             aria-describedby="password"
             placeholder="Contraseña"
           />
+          <a class="btn btn-outline-secondary" (click)="showPassword('password')"><fa-icon [icon]="faEye"></fa-icon></a>
+        </div>
           <app-validations-errors
             class="mt-2 mb-2"
             [forma]="forma"

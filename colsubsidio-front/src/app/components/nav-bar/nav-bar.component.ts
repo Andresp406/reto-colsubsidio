@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 
 @Component({
     selector: 'app-nav-bar',
@@ -7,4 +7,8 @@ import {Component} from '@angular/core';
 })
 export class NavBarComponent {
     title:string = 'Colsubsidio front';
+    
+    
+
+    
 }

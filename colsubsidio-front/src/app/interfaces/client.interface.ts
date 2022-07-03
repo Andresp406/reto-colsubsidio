@@ -6,6 +6,8 @@ export interface IClient{
     lastName:string;
     phone:number;
     address:string;
+    password?:string;
+    passwordConfirmed?:string;
     photo?:string;
     account?: IAccount[];
     
