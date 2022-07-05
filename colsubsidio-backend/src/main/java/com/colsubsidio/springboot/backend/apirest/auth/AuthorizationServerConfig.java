@@ -1,5 +1,7 @@
 package com.colsubsidio.springboot.backend.apirest.auth;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
@@ -21,6 +24,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AditionalInfoConfig infoAditionalToken;
 	
 	@Autowired
 	@Qualifier("authenticationManager")
@@ -45,9 +51,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		TokenEnhancerChain tokenEnchanherChain = new TokenEnhancerChain();
+		tokenEnchanherChain.setTokenEnhancers(Arrays.asList(this.infoAditionalToken, accessTokenConverter()));
 		endpoints.authenticationManager(authenticationManager)
 		.tokenStore(tokenStore())
-		.accessTokenConverter(accessTokenConverter());
+		.accessTokenConverter(accessTokenConverter())
+		.tokenEnhancer(tokenEnchanherChain);
 	}
 
 	@Bean
@@ -58,7 +67,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter jwtAccessTokenConverter=new JwtAccessTokenConverter();
-		jwtAccessTokenConverter.setSigningKey(JwtConfig.SECRET_KEY);
+		jwtAccessTokenConverter.setSigningKey(JwtConfig.RSA_PRIVATE);
+		jwtAccessTokenConverter.setVerifierKey(JwtConfig.RSA_PUBLIC);
 		return jwtAccessTokenConverter;
 	}
 	

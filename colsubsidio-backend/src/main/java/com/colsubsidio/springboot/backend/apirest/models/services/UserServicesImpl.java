@@ -19,7 +19,7 @@ import com.colsubsidio.springboot.backend.apirest.models.dao.UserDaoInterface;
 import com.colsubsidio.springboot.backend.apirest.models.entity.UserEntity;
 
 @Service
-public class UserServicesImpl implements UserDetailsService{
+public class UserServicesImpl implements UserServicesInterface,UserDetailsService{
 
 	private Logger logger = LoggerFactory.getLogger(UserServicesImpl.class);
 	
@@ -43,5 +43,10 @@ public class UserServicesImpl implements UserDetailsService{
 											.peek(auth -> logger.info("Rol :".concat(auth.getAuthority())))
 											.collect(Collectors.toList());
 		return new User( user.getUserName(), user.getPassword(), user.getEnabled(), true, true,true, authorities);
+	}
+
+	@Override
+	public UserEntity findByUserName(String username) {
+		return this.userDao.findByUserName(username);
 	}
 }
