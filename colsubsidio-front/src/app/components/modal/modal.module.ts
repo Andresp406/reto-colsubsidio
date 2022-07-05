@@ -4,7 +4,7 @@ import { BaseModalComponent } from './base-modal/base-modal.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { ValidationsErrorsComponent } from './validations-errors/validations-errors.component';
+
 import { RegisterComponent } from './register/register.component';
 import { EditClientComponent } from './edit-client/edit-client.component';
 import { RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { ShowDetailsClientComponent } from './show-details-client/show-details-c
 import { ButtonCloseComponent } from './button-close/button-close.component';
 import { LoginComponent } from './login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ValidationsErrorsComponent } from './validations-errors/validations-errors.component';
 
 
 
@@ -24,7 +25,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     EditClientComponent,
 
     ShowDetailsClientComponent,
-      LoginComponent 
+    LoginComponent,
+       
   ],
   imports: [
     CommonModule,

@@ -22,7 +22,11 @@ const routes:Routes =[
         component:HomeComponent
       },
       {
-        path:'student',
+        path:'client',
+        component:ClientComponent
+      },
+      {
+        path:'client/page/:page',
         component:ClientComponent
       }
     ]

@@ -23,17 +23,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" routerLinkActivate="active">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Configuracion de la cuenta
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Editar Informacion</a></li>
-            <li><a class="dropdown-item" href="#">Salir</a></li>
-          </ul>
-        </li>
+        </li>        
       </ul>
       <ul class="d-flex mb-2 mb-lg-0">
         <li class="nav-item" routerLinkActivate="active">
@@ -48,6 +38,16 @@
             (click)="register.open()"
             >Registrarse</a
           >
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <fa-icon [icon]="faCircleNotch"></fa-icon>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Editar Informacion</a></li>
+            <li><a class="dropdown-item" href="#">Salir</a></li>
+          </ul>
         </li>
       </ul>
 

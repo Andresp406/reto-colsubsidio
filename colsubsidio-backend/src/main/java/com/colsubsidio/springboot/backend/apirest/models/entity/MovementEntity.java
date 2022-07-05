@@ -1,9 +1,7 @@
 package com.colsubsidio.springboot.backend.apirest.models.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="movements")
@@ -29,16 +28,12 @@ public class MovementEntity implements Serializable{
 	
 	private Double value;
 	
+	
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "account"})
 	@ManyToOne(fetch=FetchType.LAZY)
-	private List<AccountEntity> account;
+	private AccountEntity account;
 	
 	
-	public MovementEntity() {
-		this.account = new ArrayList<>();
-	}
-
-
-
 	public Long getId() {
 		return id;
 	}
@@ -87,13 +82,13 @@ public class MovementEntity implements Serializable{
 
 
 
-	public List<AccountEntity> getAccount() {
+	public AccountEntity getAccount() {
 		return account;
 	}
 
 
 
-	public void setAccount(List<AccountEntity> account) {
+	public void setAccount(AccountEntity account) {
 		this.account = account;
 	}
 

@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TabsComponent } from './tabs/tabs.component';
 import { MovementComponent } from './movement/movement.component';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InformationClientComponent } from './information-client/information-client.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,16 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
     FooterComponent,
     NavBarComponent,
     TabsComponent,
-    MovementComponent
+    MovementComponent,
+    InformationClientComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ModalModule,
     ReactiveFormsModule,
-    MdbTabsModule
+    MdbTabsModule,
+    FontAwesomeModule
 
   ],
   exports:[

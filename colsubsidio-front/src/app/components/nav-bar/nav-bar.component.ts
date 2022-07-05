@@ -1,4 +1,5 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
+import {faUserCircle} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-nav-bar',
@@ -7,7 +8,7 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 })
 export class NavBarComponent {
     title:string = 'Colsubsidio front';
-    
+    faCircleNotch=faUserCircle;
     
 
     

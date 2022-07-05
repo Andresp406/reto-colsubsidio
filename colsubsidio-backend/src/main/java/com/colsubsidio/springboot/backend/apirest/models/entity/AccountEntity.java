@@ -33,28 +33,21 @@ public class AccountEntity implements Serializable {
 	private Double balance;
 	
     @ManyToOne(fetch=FetchType.LAZY)
-	private List<ClientEntity> client;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "client"})
+	private ClientEntity client;
     
-    @JsonIgnoreProperties({"movement", "hibernateLazyInitializer", "handler",})
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="movement", cascade=CascadeType.ALL)
-	private MovementEntity movement;
+    @JsonIgnoreProperties({"account", "hibernateLazyInitializer", "handler",})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="account", cascade=CascadeType.ALL)
+	private List<MovementEntity> movement;
 	
 	public AccountEntity() {
-		this.client = new ArrayList<>();
+		this.movement = new ArrayList<>();
 	}
 	
 	//getter and setter
 	
 
 	private static final long serialVersionUID = 1L;
-
-	public MovementEntity getMovement() {
-		return movement;
-	}
-
-	public void setMovement(MovementEntity movement) {
-		this.movement = movement;
-	}
 
 	public Long getId() {
 		return id;
@@ -80,12 +73,22 @@ public class AccountEntity implements Serializable {
 		this.balance = balance;
 	}
 
-	public List<ClientEntity> getClient() {
+	public ClientEntity getClient() {
 		return client;
 	}
 
-	public void setClient(List<ClientEntity> client) {
+	public void setClient(ClientEntity client) {
 		this.client = client;
 	}
+
+	public List<MovementEntity> getMovement() {
+		return movement;
+	}
+
+	public void setMovement(List<MovementEntity> movement) {
+		this.movement = movement;
+	}
+
+
 
 }

@@ -21,10 +21,10 @@ export class EditClientComponent implements OnInit {
 
   ngOnInit(): void {
     const data:IClient = {
-      firstName:this.client.firstName,
-      lastName:this.client.lastName,
+      fullName:this.client.fullName,
+      userName:this.client.userName,
       phone:this.client.phone,
-      address:this.client.address,
+      address:this.client.address,      
     }
     this.forma.setValue(data);
   }
@@ -32,18 +32,19 @@ export class EditClientComponent implements OnInit {
 
   setValidationForm(): FormGroup {
     return new FormGroup({
-      firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+      fullName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+      userName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
       phone: new FormControl(null, [Validators.required]),
       address: new FormControl(null, [Validators.required]),
+      
     });
   }
 
   onSubmit(): void {
     const data: IClient = {
       id: this.client.id,
-      firstName: this.forma.get('firstName')?.value,
-      lastName: this.forma?.get('lastName')?.value,
+      fullName: this.forma.get('firstName')?.value,
+      userName: this.forma?.get('lastName')?.value,
       phone: this.forma?.get('phone')?.value,
       address: this.forma?.get('address')?.value,     
     };

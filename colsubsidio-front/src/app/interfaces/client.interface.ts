@@ -2,8 +2,8 @@ import { IAccount } from "./account.interface";
 
 export interface IClient{
     id?:number;
-    firstName:string;
-    lastName:string;
+    fullName:string;
+    userName:string;
     phone:number;
     address:string;
     password?:string;

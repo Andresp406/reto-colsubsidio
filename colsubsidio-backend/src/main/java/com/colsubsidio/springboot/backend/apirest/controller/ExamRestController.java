@@ -116,8 +116,8 @@ public class ExamRestController {
 		
 		try {
 			
-			examNow.setGrade(exam.getGrade());
-			examNow.setQuestion(exam.getQuestion());
+			//examNow.setGrade(exam.getGrade());
+			//examNow.setQuestion(exam.getQuestion());
 
 			examUpdate = examService.save(examNow);
 		}catch(DataAccessException e){

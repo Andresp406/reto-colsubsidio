@@ -8,10 +8,10 @@
 		<version>2.6.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.fonyou.springboot.backend.apirest.application</groupId>
+	<groupId>com.colsubsidio.springboot.backend.apirest.application</groupId>
 	<artifactId>fonyou-backend-apirest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fonyou-backend-apirest-application</name>
+	<name>colsubsidio-backend-apirest-application</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>

@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.colsubsidio.springboot.backend.apirest.models.dao.AccountDaoInterface;
 import com.colsubsidio.springboot.backend.apirest.models.entity.AccountEntity;
-import com.colsubsidio.springboot.backend.apirest.models.entity.AnswerEntity;
-import com.colsubsidio.springboot.backend.apirest.models.entity.QuestionEntity;
 
 @Service
 @ComponentScan
@@ -46,13 +44,13 @@ public class MovementServicesImpl implements MovementServicesInterface {
 	@Override
 	@Transactional(readOnly = true)
 	public List<?> findAllQuestion() {
-		return this.examDao.findAllQuestion();
+		return null;//this.examDao.findAllQuestion();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<?> findAllAnswer() {
-		return this.examDao.findAllAnswer();
+		return null;//this.examDao.findAllAnswer();
 	}
 
 }

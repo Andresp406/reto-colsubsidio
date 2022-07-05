@@ -22,7 +22,7 @@ export class ClientComponent implements OnInit {
 
   public getClient():void{
     this.spinner.show();
-    this.clientService.getClient().subscribe(client => {
+    this.clientService.getClients().subscribe(client => {
       this.clients = client
       this.spinner.hide();
     });
@@ -31,7 +31,7 @@ export class ClientComponent implements OnInit {
   public deleteClient(client:IClient):void{  
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Desea eliminar al estudiante ${client.firstName} ${client.lastName}`,
+      text: `Desea eliminar al estudiante ${client.fullName} ${client.userName}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

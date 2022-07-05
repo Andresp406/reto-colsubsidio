@@ -1,6 +1,6 @@
 
   <div class="modal-content" style="display:block; width: 100%;">
-    <div class="modal-header bg-success p-2 text-dark bg-opacity-50">
+    <div class="modal-header bg-secondary p-2 text-dark bg-opacity-50">
       <div class="text-center exo pt-4 text-white" style="font-size: 36px">{{ title }}</div>
       <app-button-close
         (cerrarModal)="cerrar($event)"
@@ -19,14 +19,14 @@
           <input
             type="text"
             class="form-control"
-            formControlName="firstName"
-            aria-describedby="firstName"
+            formControlName="fullName"
+            aria-describedby="fullName"
             placeholder="Nombre"
           />
           <app-validations-errors
             class="mt-2 mb-2"
             [forma]="forma"
-            formControlLabel="firstName"
+            formControlLabel="fullName"
             [minlenght]="3"
           ></app-validations-errors>
         </div>
@@ -35,14 +35,14 @@
           <input
             type="text"
             class="form-control"
-            formControlName="lastName"
-            aria-describedby="lastName"
-            placeholder="Apellido"
+            formControlName="userName"
+            aria-describedby="userName"
+            placeholder="Usuario"
           />
           <app-validations-errors
             class="mt-2 mb-2"
             [forma]="forma"
-            formControlLabel="lastName"
+            formControlLabel="userName"
             [minlenght]="3"
           ></app-validations-errors>
         </div>
@@ -102,27 +102,31 @@
         <div class="mb-3 ">
           <div class="input-group">
             <input
-              #passwordConfirmed
+              #passwordConfirmation
               type="password"
               class="form-control"
-              formControlName="passwordConfirmed"
-              aria-describedby="passwordConfirmed"
+              formControlName="passwordConfirmation"
+              aria-describedby="passwordConfirmation"
               placeholder="Confirmar Contraseña"
             />
-            <a class="btn btn-outline-secondary" (click)="showPassword('passwordConfirmed')"><fa-icon [icon]="faEye"></fa-icon></a>
+            <a class="btn btn-outline-secondary" (click)="showPassword('passwordConfirmation')"><fa-icon [icon]="faEye"></fa-icon></a>
           </div>
+          
           <app-validations-errors
           class="mt-2 mb-2"
-          [forma]="forma"
-          formControlLabel="passwordConfirmed"
+          [forma]="forma"          
+          formControlLabel="passwordConfirmation"
           [minlenght]="3"
           ></app-validations-errors>
+          <small class="alert alert-danger mb-2 form-control exo text-field shadow-none" role="alert" *ngIf="formaPasswordConfirmation">
+          Las Contraseñas no son iguales
+        </small>  
         </div>
-        <button type="submit" [disabled]="forma.valid" class="btn btn-primary form-control">Registrar</button>
+        <button type="submit" [disabled]="forma.valid" class="btn btn-outline-primary form-control">Registrar</button>
       </form>
     </div>
-    <div class="modal-footer bg-info p-2 text-dark bg-opacity-50">
+    <div class="modal-footer bg-light p-2 text-dark bg-opacity-50">
       <a class="cursor-pointer" href="javascript:void(0);" (click)="login.open()" (click)="cerrar(true)">Ya estoy registrado</a>
     </div>
   </div>
-  <app-base-modal #login [target]="'login'"></app-base-modal>
+  <app-base-modal #login [target]="'login'"></app-base-modal>  

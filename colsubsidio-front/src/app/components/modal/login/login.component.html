@@ -1,6 +1,6 @@
 
   <div class="modal-content">
-    <div class="modal-header bg-success p-2 text-dark bg-opacity-50">
+    <div class="modal-header bg-secondary p-2 text-dark bg-opacity-50 ">
       <div class="text-center exo pt-4" style="font-size: 36px">{{ title }}</div>
       <app-button-close
         (cerrarModal)="cerrar($event)"
@@ -41,7 +41,7 @@
             aria-describedby="password"
             placeholder="Contraseña"
           />
-          <a class="btn btn-outline-secondary" (click)="showPassword('password')"><fa-icon [icon]="faEye"></fa-icon></a>
+          <a class="btn btn-outline-secondary" (click)="showPassword()"><fa-icon [icon]="faEye"></fa-icon></a>
         </div>
           <app-validations-errors
             class="mt-2 mb-2"
@@ -53,8 +53,8 @@
         
       </form>
     </div>
-    <div class="modal-footer bg-info p-2 text-dark bg-opacity-50">
-      <button type="submit" [disabled]="forma.invalid" class="btn btn-primary">Iniciar Sesion</button>
+    <div class="modal-footer bg-light p-2 text-dark bg-opacity-50">
+      <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary">Iniciar Sesion</button>
       <a class="cursor-pointer" href="javascript:void(0);" (click)="register.open()" (click)="cerrar(true)">Quiero registrarme</a>
     </div>
   </div>

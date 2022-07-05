@@ -14,8 +14,8 @@
                 <div class="col-sm-12">
                     <ul *ngIf="client" class="list-group text-dark mb-3">
                         <li class="list-group-item active text-center">INFORMACION DEL ESTUDIANTE</li>
-                        <li class="list-group-item text-center">{{client.firstName | uppercase}}</li>
-                        <li class="list-group-item text-center">{{client.lastName | uppercase}}</li>
+                        <li class="list-group-item text-center">{{client.fullName | uppercase}}</li>
+                        <li class="list-group-item text-center">{{client.userName | uppercase}}</li>
                         <li class="list-group-item text-center">{{client.phone}}</li>
                         <li class="list-group-item text-center">{{client.address | uppercase}}</li>
                         <li class="list-group-item text-center">{{client?.photo}}</li>

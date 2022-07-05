@@ -3,8 +3,6 @@ package com.colsubsidio.springboot.backend.apirest.models.services;
 import java.util.List;
 
 import com.colsubsidio.springboot.backend.apirest.models.entity.AccountEntity;
-import com.colsubsidio.springboot.backend.apirest.models.entity.AnswerEntity;
-import com.colsubsidio.springboot.backend.apirest.models.entity.QuestionEntity;
 
 public interface MovementServicesInterface {
 	

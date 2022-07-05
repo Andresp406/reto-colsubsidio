@@ -70,7 +70,9 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "colsubsidio-front:build:production"
+              "browserTarget": "colsubsidio-front:build:production",
+              "proxyConfig": "proxy.conf"
+
             },
             "development": {
               "browserTarget": "colsubsidio-front:build:development"

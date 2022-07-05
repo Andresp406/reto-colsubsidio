@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.cerrarModal.emit(event);
   }
 
-  showPassword(args:string){
+  showPassword(){
     if (this.password.nativeElement.type === 'password'){
       this.password.nativeElement.type = "text";
     }else{

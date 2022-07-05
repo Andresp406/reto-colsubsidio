@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-validations-errors',
   templateUrl: './validations-errors.component.html',
 
 })
-export class ValidationsErrorsComponent implements OnInit {
+export class ValidationsErrorsComponent{
 
   @Input() forma!: FormGroup;
   @Input() formControlLabel!: string ;
@@ -17,12 +17,14 @@ export class ValidationsErrorsComponent implements OnInit {
 
   
   constructor() { }
-
-  ngOnInit(): void {
-  }
+ 
 
   get selectorName(){
     return this.forma.get(this.formControlLabel);
   }
+
+
+ 
+
 
 }

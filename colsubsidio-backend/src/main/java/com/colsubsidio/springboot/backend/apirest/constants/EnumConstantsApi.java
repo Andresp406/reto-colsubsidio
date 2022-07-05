@@ -8,7 +8,7 @@ public enum EnumConstantsApi {
 	ST_MESSAGE_JSON("message"),
 	ST_ERROR_JSON("error"),
 	ST_EXAM_JSON("exam"),
-	ST_STUDENT_JSON("student"),
+	ST_CLIENT_JSON("client"),
 	
 	ST_ERROR_CODE_400("400"),
 	ST_DESCRIPTION_CODE_400("Error en la formacion de la solicitud"),
@@ -21,9 +21,9 @@ public enum EnumConstantsApi {
 	ST_TITLE_CREATE_EXAM("Crear examen"),
     ST_URL_DESCRIPTION_CREATE_EXAM("Este se compone de un conjunto de preguntas con 4 opciones, 1 opción correcta y un puntaje por cada pregunta que en total deben sumar 100 puntos (la nota total del examen)."),
     
-    ST_URL_CREATE_STUDENT("/crear-estudiante"),
-    ST_TITLE_CREATE_STUDENT("Crear estudiante"),
-    ST_URL_DESCRIPTION_CREATE_STUDENT("Este se compone de la siguiente información: nombre, edad, ciudad y zona horaria de la ciudad. "),
+    ST_URL_CREATE_CLIENT("/crear-estudiante"),
+    ST_TITLE_CREATE_CLIENT("Crear estudiante"),
+    ST_URL_DESCRIPTION_CREATE_CLIENT("Este se compone de la siguiente información: nombre, edad, ciudad y zona horaria de la ciudad. "),
 
     ST_URL_ASSING_EXAM("/asignar-examen"),
     ST_TITLE_ASSING_EXAM("Asignar examen"),

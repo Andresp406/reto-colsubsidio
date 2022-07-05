@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { IClient } from 'src/app/interfaces/client.interface';
 import { ClientService } from 'src/app/services/client.service';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -12,48 +12,69 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent implements OnInit {
   faEye=faEye;
-  forma: FormGroup;
   title: string = 'Registro Clientes';
   @ViewChild("password", { static: false }) password!: ElementRef<HTMLInputElement>;
-  @ViewChild("passwordConfirmed", { static: false }) passwordConfirmed!: ElementRef<HTMLInputElement>;
+  @ViewChild("passwordConfirmation", { static: false }) passwordConfirmed!: ElementRef<HTMLInputElement>;
   @Output() cerrarModal = new EventEmitter<boolean>();
   @Output() clientUpdate = new EventEmitter<any>();
+  
+  forma: FormGroup = new FormGroup({
+    fullName: new FormControl(''),
+    userName: new FormControl(''),
+    phone: new FormControl(''),
+    address: new FormControl(''),
+    password: new FormControl(''),
+    passwordConfirmation: new FormControl('')
+  });
 
-  constructor(private clientService: ClientService, private router: Router) {
-    this.forma = this.setValidationForm();
+  constructor(private clientService: ClientService, 
+              private router: Router,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.forma = this.formBuilder.group({
+      fullName:['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      userName:['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      phone:['', [Validators.required, Validators.pattern('[0-9]')]],
+      address:['', [Validators.required, Validators.minLength(3)]],
+      password:['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      passwordConfirmation:['', [Validators.required, this.passwordMatch.bind(this)]]
+    },
+  
+    )
   }
 
 
-  setValidationForm(): FormGroup {
-    return new FormGroup({
-      firstName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      lastName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      phone: new FormControl(null, [Validators.required, Validators.pattern('[0-9]')]),
-      address: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      password: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._]+$'), Validators.minLength(3)]),
-      passwordConfirmed: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._]+$'), Validators.minLength(3)]),
 
-    });
+  get formaPasswordConfirmation():ValidationErrors{
+    return this.forma.controls['passwordConfirmation']?.errors['equals'];
+  }
+
+  passwordMatch(control:AbstractControl): Validators{
+    const valid = this.forma?.get('password')?.value;
+
+    console.log(valid === control.value)
+      if (valid === control.value) {
+        return('null');
+      } else {
+        return({ equals: true });
+      }
   }
 
   onSubmit(): void {
     this.router.navigate(['/modulo/dashboard']);
-    console.log("Dasd")
     const data: IClient = {
-      firstName: this.forma.get('firstName')?.value,
-      lastName: this.forma?.get('lastName')?.value,
+      fullName: this.forma.get('fullName')?.value,
+      userName: this.forma?.get('userName')?.value,
       phone: this.forma?.get('phone')?.value,
       address: this.forma?.get('address')?.value,
-      password: this.forma?.get('password')?.value,
-      passwordConfirmed: this.forma?.get('passwordConfirmed')?.value      
+      password: this.forma?.get('password')?.value,      
     };
-    this.clientService.registerClient(data).subscribe((resp)=>{
+    this.clientService.registerClient(data).subscribe((resp:any)=>{
       Swal.fire({
         icon: 'success',
-        title: `Bienvenido ${data.firstName} ${data.lastName}  ${resp.message}`,
+        title: `Bienvenido ${data.fullName} ${data.userName}  ${resp.message}`,
         showConfirmButton: false,
         timer: 1500
       });
@@ -77,7 +98,7 @@ export class RegisterComponent implements OnInit {
           this.password.nativeElement.type = "password";
           break;
         }
-      case "passwordConfirmed":
+      case "passwordConfirmation":
         if (this.passwordConfirmed.nativeElement.type === 'password'){
           this.passwordConfirmed.nativeElement.type = "text";
           break;
