@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IUser } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,14 +28,17 @@ export class AuthService {
     return this._getHeaders();
   }
 
-  login(user: any){
-    const url = `${environment.url_base}/auth/login`;
-    const data = {
-      email: user.email,
-      password: user.password,
-    }
+  login(user: IUser):Observable<any>{
+    const url = `${environment.url_base_oauth}/auth/login`;
+    const credentials = btoa(environment.credentialsApp);
+    const headers =  new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + credentials});
+    let params = new URLSearchParams();
+    params.set('grant_type', 'password');
+    params.set('username', user.username);
+    params.set('password', user.password);
 
-    return this._http.post<any>(url, data);
+    return this._http.post<any>(url, params, {headers:headers});
   }
 
   check():Observable<any> {

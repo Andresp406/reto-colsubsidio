@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   url_base:'http://localhost:9001/api/',
+  url_base_oauth:'http://localhost:9001/oauth/token',
+  credentialsApp:'front-colsubsidio' + ':' + '12345',
   headers:'application/json',
 };
 
@@ -15,4 +17,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
