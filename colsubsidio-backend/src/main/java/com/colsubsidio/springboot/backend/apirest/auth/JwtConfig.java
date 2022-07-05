@@ -1,7 +1,6 @@
 package com.colsubsidio.springboot.backend.apirest.auth;
 
 public class JwtConfig {
-	public static final String SECRET_KEY = "clave.secreta.12345678";
 	public static final String RSA_PRIVATE = "-----BEGIN RSA PRIVATE KEY-----\r\n"
 			+ "MIIEogIBAAKCAQEAs/8gFlf+W/j380eo9z17Om0yxGr0D6+gIkjcxQRllHGM0P+S\r\n"
 			+ "Tfwkei7S9Kb2U7fuPeiN/WOx1DQwS3wyG6wW7PC4R0SjZI8v2zaqddkO+XL9JVi7\r\n"

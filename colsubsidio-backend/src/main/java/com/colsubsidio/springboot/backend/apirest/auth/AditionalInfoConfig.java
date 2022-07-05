@@ -14,17 +14,19 @@ import com.colsubsidio.springboot.backend.apirest.models.entity.UserEntity;
 import com.colsubsidio.springboot.backend.apirest.models.services.UserServicesInterface;
 
 @Component
-public class AditionalInfoConfig implements TokenEnhancer{
+public class AditionalInfoConfig implements TokenEnhancer {
 
 	@Autowired
 	private UserServicesInterface userService;
-	
+
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-		UserEntity user = this.userService.findByUserName(authentication.getName());
-		Map<String,Object> info = new HashMap<>();
-		info.put("stUserName", user.getUserName());
-		
+		UserEntity user = this.userService.findByUsername(authentication.getName());
+		Map<String, Object> info = new HashMap<>();
+		info.put("stUserName", user.getUsername());
+		info.put("stFullName", user.getFullName());
+
+
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(info);
 		return accessToken;
 	}

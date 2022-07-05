@@ -40,8 +40,8 @@ public class ClientServicesImpl implements ClientServicesInterface{
 
 	@Override
 	@Transactional
-	public ClientEntity save(ClientEntity student) {
-		return clientDao.save(student);
+	public ClientEntity save(ClientEntity username) {
+		return clientDao.save(username);
 	}
 
 	@Override

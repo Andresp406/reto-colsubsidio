@@ -18,7 +18,7 @@ public interface ClientServicesInterface {
 	
 	public ClientEntity findById(Long id);
 	
-	public ClientEntity save(ClientEntity student);
+	public ClientEntity save(ClientEntity userName);
 	
 	
 }

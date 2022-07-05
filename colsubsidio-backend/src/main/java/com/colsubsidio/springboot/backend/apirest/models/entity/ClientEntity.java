@@ -1,4 +1,5 @@
 package com.colsubsidio.springboot.backend.apirest.models.entity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,49 +18,39 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
-@Table(name="clients")
-public class ClientEntity implements Serializable{
+@Table(name = "clients")
+public class ClientEntity implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotEmpty
-	@Size(min=4, max=15)
-	@Column(name="full_name", nullable=false)
-	private String fullName; 
-	
-	@NotEmpty
-	@Size(min=4, max=15)
-	@Column(name="user_name", nullable=false)
-	private String userName;
-	
-	@Column(nullable=false)
+	@Size(min = 4, max = 15)
+	@Column(name = "full_name", nullable = false)
+	private String fullName;
+
+	@Column(nullable = false)
 	private Long phone;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String address;
-	
+
 	@NotEmpty
 	private String password;
-	
 
-	@JsonIgnoreProperties({"client", "hibernateLazyInitializer", "handler",})
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="client", cascade=CascadeType.ALL)
+	@JsonIgnoreProperties({ "client", "hibernateLazyInitializer", "handler", })
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
 	private List<AccountEntity> account;
-	
-	
+
 	private String photo;
-	
-	
+
 	public ClientEntity() {
 		this.account = new ArrayList<>();
 	}
-	
-	
-	//getter and setter
+
+	// getter and setter
 
 	private static final long serialVersionUID = 1L;
 
@@ -77,14 +68,6 @@ public class ClientEntity implements Serializable{
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public Long getPhone() {
@@ -126,8 +109,5 @@ public class ClientEntity implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
 
 }

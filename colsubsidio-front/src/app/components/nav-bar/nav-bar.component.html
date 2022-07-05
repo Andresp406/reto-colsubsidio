@@ -25,21 +25,12 @@
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>        
       </ul>
-      <ul class="d-flex mb-2 mb-lg-0">
+      <ul class="navbar-nav navbar-right">
         <li class="nav-item" routerLinkActivate="active">
-          <a class="nav-link active" aria-current="page" (click)="login.open()"
+          <a class="btn btn-outline-primary text-white" aria-current="page" (click)="login.open()"
             >Iniciar Sesion</a
           >
         </li>
-        <li class="nav-item" routerLinkActivate="active">
-          <a
-            class="nav-link active"
-            aria-current="page"
-            (click)="register.open()"
-            >Registrarse</a
-          >
-        </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <fa-icon [icon]="faCircleNotch"></fa-icon>
@@ -51,12 +42,8 @@
         </li>
       </ul>
 
-      <!--form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form-->
+      
     </div>
   </div>
 </nav>
 <app-base-modal #login [target]="'login'"></app-base-modal>
-<app-base-modal #register [target]="'register'"></app-base-modal>

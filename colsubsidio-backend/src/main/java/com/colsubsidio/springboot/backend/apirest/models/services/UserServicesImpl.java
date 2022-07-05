@@ -19,34 +19,34 @@ import com.colsubsidio.springboot.backend.apirest.models.dao.UserDaoInterface;
 import com.colsubsidio.springboot.backend.apirest.models.entity.UserEntity;
 
 @Service
-public class UserServicesImpl implements UserServicesInterface,UserDetailsService{
+public class UserServicesImpl implements UserServicesInterface, UserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(UserServicesImpl.class);
-	
-	
+
 	@Autowired
 	private UserDaoInterface userDao;
-	
+
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = this.userDao.findByUserName(username);
-		if (null== user) {
+		UserEntity user = this.userDao.findByUsername(username);
+		if (null == user) {
 			logger.error("error en el login: no existe el usuario".concat(username).concat("en el sistema"));
-			throw new UsernameNotFoundException("error en el login: no existe el usuario".concat(username).concat("en el sistema"));
+			throw new UsernameNotFoundException(
+					"error en el login: no existe el usuario".concat(username).concat("en el sistema"));
 		}
-		
-		
+
 		List<GrantedAuthority> authorities = user.getRoles()
-			         						.stream()
-											.map(rol -> new SimpleGrantedAuthority(rol.getRolName()))
-											.peek(auth -> logger.info("Rol :".concat(auth.getAuthority())))
-											.collect(Collectors.toList());
-		return new User( user.getUserName(), user.getPassword(), user.getEnabled(), true, true,true, authorities);
+				.stream()
+				.map(rol -> new SimpleGrantedAuthority(rol.getRolName()))
+				.peek(auth -> logger.info("Rol :" + auth.getAuthority() ))
+				.collect(Collectors.toList());
+		return new User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, authorities);
 	}
 
 	@Override
-	public UserEntity findByUserName(String username) {
-		return this.userDao.findByUserName(username);
+	@Transactional(readOnly = true)
+	public UserEntity findByUsername(String username) {
+		return this.userDao.findByUsername(username);
 	}
 }

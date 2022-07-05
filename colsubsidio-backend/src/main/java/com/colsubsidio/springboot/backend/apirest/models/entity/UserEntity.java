@@ -1,11 +1,10 @@
 package com.colsubsidio.springboot.backend.apirest.models.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -15,22 +14,22 @@ public class UserEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "user_name",unique = true, length = 20)
-	private String userName;
+	@Column(unique = true, length = 20)
+	private String username;
 
-	@Column(length = 80)
+	@Column(length = 100)
 	private String password;
 
 	private Boolean enabled;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="user_rol", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"), 
-			   uniqueConstraints= {@UniqueConstraint(columnNames= {"user_id", "role_id"})})
-	private List<RoleEntity> roles;
+	@Size(min = 4, max = 15)
+	@Column(name = "full_name", nullable = false)
+	private String fullName;
 
-	public UserEntity() {
-		this.roles = new ArrayList<>();
-	}
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "user_rol", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "user_id", "role_id" }) })
+	private List<RoleEntity> roles;
 
 	public Long getId() {
 		return id;
@@ -40,12 +39,12 @@ public class UserEntity implements Serializable {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -62,6 +61,14 @@ public class UserEntity implements Serializable {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public List<RoleEntity> getRoles() {
