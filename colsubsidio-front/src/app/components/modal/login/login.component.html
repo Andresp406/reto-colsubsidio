@@ -26,7 +26,7 @@
           <app-validations-errors
             class="mt-2 mb-2"
             [forma]="forma"
-            formControlLabel="userName"
+            formControlLabel="username"
             [minlenght]="3"
           ></app-validations-errors>
         </div>
@@ -51,11 +51,11 @@
           ></app-validations-errors>
         </div>      
         
+        <div class="modal-footer bg-light p-2 text-dark bg-opacity-50">
+          <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary">Iniciar Sesion</button>
+         
+        </div>
       </form>
     </div>
-    <div class="modal-footer bg-light p-2 text-dark bg-opacity-50">
-      <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary">Iniciar Sesion</button>
-      <a class="cursor-pointer" href="javascript:void(0);" (click)="register.open()" (click)="cerrar(true)">Quiero registrarme</a>
-    </div>
   </div>
-  <app-base-modal #register [target]="'register'"></app-base-modal>
+

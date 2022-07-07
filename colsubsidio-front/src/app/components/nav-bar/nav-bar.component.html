@@ -26,20 +26,24 @@
         </li>        
       </ul>
       <ul class="navbar-nav navbar-right">
-        <li class="nav-item" routerLinkActivate="active">
+        <li class="nav-item" routerLinkActivate="active" *ngIf="!_auth.isAuthenticated()">
           <a class="btn btn-outline-primary text-white" aria-current="page" (click)="login.open()"
             >Iniciar Sesion</a
           >
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <fa-icon [icon]="faCircleNotch"></fa-icon>
+        
+          <li class="nav-item dropdown" style="margin-right: 150px" *ngIf="_auth.isAuthenticated();">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <fa-icon [icon]="faCircleNotch"></fa-icon>
+            
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Hola {{_auth?.getCurrentUser?.username}}</a></li>
+              <li><a class="dropdown-item" href="#">Editar Informacion</a></li>
+              <li><a class="dropdown-item" (click)="logout()">Salir</a></li>
+            </ul>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Editar Informacion</a></li>
-            <li><a class="dropdown-item" href="#">Salir</a></li>
-          </ul>
-        </li>
+          </li>
+        
       </ul>
 
       

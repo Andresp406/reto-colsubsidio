@@ -2,94 +2,106 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUser } from '../interfaces/user.interface';
+import { User } from '../interfaces/userclass';
+import { IResponseUser, IUser } from '../interfaces/user.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private _token!:string;
+  private _user:User;
+
   constructor(
     private _http: HttpClient,
   ) { }
 
   get getToken(): string {
-    return localStorage.getItem('x-token') || '';
+    if (this._token!=null){
+      return this._token;
+    }else if(this._token == null && localStorage.getItem('x-token') != null){
+      return localStorage.getItem('x-token') ;
+    }
+    return this._token;
   }
 
-  get getCurrentUser(): any  {
-    return JSON.parse(localStorage.getItem('user') || '');
+  get getCurrentUser(): User  {
+    if (this._user != null || this._user == undefined){
+      return this._user;
+    }else if((this._user == null || this._user == undefined) && localStorage.getItem('user') != null){
+      this._token = localStorage.getItem('user');
+      return this._user;
+    }
+    return new User();
   }
 
   get currentID(): number  {
     return this.getCurrentUser.id
   }
 
-  get headers(): any {
-    return this._getHeaders();
-  }
+ // get headers(): any {
+   // return this._getHeaders();
+  //}
 
-  login(user: IUser):Observable<any>{
-    const url = `${environment.url_base_oauth}/auth/login`;
-    const credentials = btoa(environment.credentialsApp);
+  login(user: IUser):Observable<IResponseUser>{
+    const url = `${environment.url_base_oauth}`;
+    const credentials = window.btoa(environment.credentialsApp);
+    console.log('credentials', credentials)
     const headers =  new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded',
                     'Authorization': 'Basic ' + credentials});
     let params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', user.username);
     params.set('password', user.password);
-
-    return this._http.post<any>(url, params, {headers:headers});
+    return this._http.post<IResponseUser>(url, params.toString(), {headers:headers});
+  }
+  saveUser(accessToken:string):void{
+    this._user = new User();
+    let payload = this.getDataToken(accessToken);
+ 
+    this._user.fullname = payload.stFullName;
+    this._user.username = payload.user_name; 
+    this._user.roles = payload.authorities;
+    localStorage.setItem('user', JSON.stringify( this._user));
+    
   }
 
-  check():Observable<any> {
+  saveToken(accessToken:string):void{
+    localStorage.setItem('x-token', accessToken);
+  }
+
+
+  getDataToken(accessToken:string):any{
+    if(accessToken!=null){
+      let tokenDecrypt = window.atob(accessToken.split(".")[1]);
+      return JSON.parse(tokenDecrypt.toString());
+    }
+    return null;
+  }
+
+  /*check():Observable<any> {
     const headers = this._getHeaders();
     const url = `${environment.url_base}/auth/user-logued`;
     return this._http.get<any>(url, {headers});
-  }
+  }*/
 
  
+  logout(): void {
+    this._user = null;
+    this._token = null;
+    localStorage.clear();  
+  }
 
-
-  removeCurrentUser(): boolean {
-    localStorage.removeItem('x-token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('plans');
-    //localStorage.removeItem('lang');
-
-    return true;
+  isAuthenticated():boolean {
+    let payload = this.getDataToken(this.getToken);
+    return (payload != null && payload.user_name && payload.user_name.length > 0) ? true : false;
   }
 
 
 
-  checkLogued() {
-    const token = localStorage.getItem('x-token') || false;
-    const userLogued = localStorage.getItem('user') || false;
-
-    return token && userLogued ? true : false;
-  }
-
-  registerUser(user: any): Observable<any>{
-    const url = `${environment.url_base}/auth/register`;
-    return this._http.post<any>(url, user);
-  }
-
-  setUserLocalStorage(data: any): void {
-    localStorage.setItem('x-token', data['x-token']);
-    localStorage.setItem('user', JSON.stringify(data.user));
-  }
-
-  setCurrentUserLocalStorage(user: any) {
-    console.log('desde el serCurrentUserLocalStorage', user);
-    localStorage.setItem('user', JSON.stringify(user));
-  }
-
-  getCurrentChannel():Observable<any>{
-    const headers = this._getHeaders();
-    const url = `${environment.url_base}/channel/show-current-user`;
-    return this._http.get<any>(url, {headers});
-  }
-
-  updateUser(user:FormData):Observable<any>{
+  
+  /*updateUser(user:FormData):Observable<any>{
       const headers = this._getHeaders();
       const url = `${environment.url_base}/auth/update`;
       return this._http.post<any>(url, user, {headers});
@@ -97,25 +109,12 @@ export class AuthService {
 
   getUserNameExist(user:string){
     console.log(user);
-    const headers = this._getHeaders();
+    //const headers = this._getHeaders();
     const url = `${environment.url_base}/auth/exist-username/${user}`;
     return this._http.get<any>(url, {headers});
-  }
+  }*/
 
 
 
-  private _getHeaders(): any {
-    const token = this.getToken
-
-    if (token.length < 10) {
-      this.removeCurrentUser();
-      return new HttpHeaders();
-    }
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    })
-
-    return headers;
-  }
+ 
 }
