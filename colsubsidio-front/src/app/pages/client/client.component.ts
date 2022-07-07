@@ -4,6 +4,9 @@ import { ClientService } from '../../services/client.service';
 import { faEdit, faEye, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ActivatedRoute } from '@angular/router';
+import {tap} from 'rxjs';
+import { IPage } from 'src/app/interfaces/pageable.interface';
 
 
 @Component({
@@ -11,27 +14,46 @@ import { NgxSpinnerService } from "ngx-spinner";
   templateUrl: './client.component.html',
 })
 export class ClientComponent implements OnInit {
-  clients:IClient[] = [];
+  clients:IClient[]=[];
   icons:IconDefinition[] = [faEdit, faEye, faTrash];
-
-  constructor(private clientService:ClientService,  private spinner: NgxSpinnerService,) {}
+  paginator: any;
+  constructor(private _clientService:ClientService,
+              private _spinner: NgxSpinnerService,
+              private _activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getClient()
+    this._activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+
+      if (!page) {
+        page = 0;
+      }
+      this.getClients(page)
+    });
+
+
   }
 
-  public getClient():void{
-    this.spinner.show();
-    this.clientService.getClients().subscribe(client => {
-      this.clients = client
-      this.spinner.hide();
+  public getClients(page:number):void{
+    this._spinner.show();
+
+    this._clientService.getClients(page)
+    .pipe(
+      tap((response:IPage) => {
+        (response.content as IClient[]).forEach(cliente => console.log(cliente.fullName));
+      })
+    ).subscribe((response:IPage) => {
+      this.clients = response.content as IClient[];
+      this.paginator = response;
+      this._spinner.hide();
     });
+
   }
 
   public deleteClient(client:IClient):void{  
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Desea eliminar al estudiante ${client.fullName} ${client.userName}`,
+      text: `Desea eliminar al cliente ${client.userName}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -39,11 +61,11 @@ export class ClientComponent implements OnInit {
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.clientService.deleteClient(client.id).subscribe((resp)=>{
+        this._clientService.deleteClient(client.id).subscribe(()=>{
           this.clients = this.clients.filter(cli => cli !== client); 
           Swal.fire(
             'Eliminado!',
-            'El Cliente ha sido eliminado con exito.',
+            'El estudiante ha sido eliminado con exito.',
             'success'
           );  
         });
@@ -53,8 +75,9 @@ export class ClientComponent implements OnInit {
   }
 
   clientUpdate():void{
-   this.getClient();
+   this.ngOnInit();
   }
  
   
 }
+

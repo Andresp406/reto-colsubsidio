@@ -24,7 +24,7 @@ export class EditClientComponent implements OnInit {
       fullName:this.client.fullName,
       userName:this.client.userName,
       phone:this.client.phone,
-      address:this.client.address,      
+      address:this.client.address,     
     }
     this.forma.setValue(data);
   }
@@ -33,9 +33,10 @@ export class EditClientComponent implements OnInit {
   setValidationForm(): FormGroup {
     return new FormGroup({
       fullName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      userName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+      userName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       phone: new FormControl(null, [Validators.required]),
       address: new FormControl(null, [Validators.required]),
+      password: new FormControl(null)
       
     });
   }

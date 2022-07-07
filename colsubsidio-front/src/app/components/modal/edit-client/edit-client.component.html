@@ -21,24 +21,24 @@
           <input
             type="text"
             class="form-control exo text-field shadow-none"
-            formControlName="name"
+            formControlName="fullName"
             aria-describedby="nombre"
       
              
           />
-          <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="name" [minlenght]=3>
+          <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="fullName" [minlenght]=3>
         </app-validations-errors>
         </div>
         <div class="mb-2 mt-5" style="height: 50px">
           <input
             type="text"
             class="form-control exo text-field shadow-none"
-            formControlName="lastName"
-            aria-describedby="apellido"
+            formControlName="address"
+            aria-describedby="direccion"
          
             
           />
-          <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="lastName" [minlenght]=3>
+          <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="address" [minlenght]=3>
         </app-validations-errors>
         </div>
 
@@ -46,11 +46,11 @@
             <input
               type="number"
               class="form-control exo text-field shadow-none"
-              formControlName="age"
-              aria-describedby="edad"
+              formControlName="phone"
+              aria-describedby="phone"
             
             />
-            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="age" [minlenght]=3>
+            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="phone" [minlenght]=3>
             </app-validations-errors>
         </div>
 
@@ -58,25 +58,23 @@
             <input
               type="text"
               class="form-control exo text-field shadow-none"
-              formControlName="city"
-              aria-describedby="ciudad"
+              formControlName="userName"
+              aria-describedby="userName"
 
             />
-            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="city" [minlenght]=3>
+            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="userName" [minlenght]=3>
             </app-validations-errors>
         </div>
 
         <div class="mb-2 mt-5" style="height: 50px">
             <input
-              type="date"
+              type="password"
               class="form-control exo text-field shadow-none"
-              formControlName="timeZone"
-              aria-describedby="zonaHoraria"
-
+              formControlName="password"
+              aria-describedby="password"
+              [disabled]=""
             />
-            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="timeZone" [minlenght]=3>
-            </app-validations-errors>
-        </div>
+          </div>
      
         <button
           type="submit"

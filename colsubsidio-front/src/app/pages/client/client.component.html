@@ -1,20 +1,18 @@
-<div class="col-sm-3 text-center mt-5 mb-2">
+<div class="col-sm-3 text-center mt-5 mb-2 mx-3">
   <button class="btn btn-primary"
-  (click)="createClient.open()" >Crear Estudiante</button>
+  (click)="createClient.open()" >Registrar Cliente</button>
 </div>
 <div class="card border-success mb-3 container " >
-    <div class="card-header">Estudiantes</div>
+    <div class="card-header">Clientes</div>
     <div class="card-body text-success">
-      <h5 class="card-title">Listado de Estudiantes</h5>
+      <h5 class="card-title">Listado de Clientes</h5>
       <table class="table table-striped" *ngIf="clients.length > 0;" aria-describedby="">
           <thead>
             <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Edad</th>
-                <th>Ciudad</th>
-                <th>Zona Horaria</th>
+                <th>Foto</th>
+                <th>Nombre Completo</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
                 <th>Acciones</th>
             </tr>
           </thead>
@@ -29,9 +27,8 @@
           >
           <tbody>
             <tr *ngFor="let client of clients">
-                <td>{{client.id}}</td>
+                <td><img [src]="client.photo" [alt]="client.photo"></td>
                 <td>{{client.fullName | uppercase}}</td>
-                <td>{{client.userName | uppercase}}</td>
                 <td>{{client.phone }}</td>
                 <td>{{client.address | uppercase}}</td>
                 <td> 
@@ -42,6 +39,8 @@
             </tr>
           </tbody>
       </table>
+      <paginator-nav *ngIf="paginator" [paginator]="paginator"></paginator-nav>
+
     </div>
   </div>
 
@@ -53,3 +52,4 @@
 <app-base-modal #createClient [target]="'createClient'" (generic)="clientUpdate()"></app-base-modal>
 <app-base-modal #editClient [target]="'editClient'" (generic)="clientUpdate()"></app-base-modal>
 <app-base-modal #showClient [target]="'showClient'"></app-base-modal>
+

@@ -160,7 +160,7 @@ public class ClientRestController {
 	}
 
 	@Secured({"ROLE_ADMIN"})
-	@DeleteMapping("/clientes/{id}")
+	@DeleteMapping("/client/{id}")
 	public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 		
 		Map<String, Object> response = new HashMap<>();
@@ -203,7 +203,7 @@ public class ClientRestController {
 			} catch (IOException e) {
 				response.put(EnumConstantsApi.ST_MESSAGE_JSON.getValue(), "Error al subir la imagen del cliente");
 				response.put(EnumConstantsApi.ST_CLIENT_JSON.getValue(), e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
 			String namePhotoBefore = client.getPhoto();
@@ -219,7 +219,7 @@ public class ClientRestController {
 			
 		}
 		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/uploads/img/{fileName:.+}")
@@ -236,7 +236,7 @@ public class ClientRestController {
 		HttpHeaders header = new HttpHeaders();
 		header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
 		
-		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+		return new ResponseEntity<>(resource, header, HttpStatus.OK);
 	}
 
 

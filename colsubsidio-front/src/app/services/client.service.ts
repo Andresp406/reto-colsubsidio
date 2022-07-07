@@ -5,37 +5,32 @@ import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { Content, IPage } from '../interfaces/pageable.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  constructor(private _http:HttpClient, private _route:Router) { }
+  constructor(private _http:HttpClient, private _route:Router, private _auth:AuthService) { }
 
-  getClients():Observable<any>{
-    return this._http.get<IClient[]>(`${environment.url_base}client`).pipe(
-      tap((resp:any) =>{
-        (resp.content as IClient[]).forEach((cliente)=>{
-          console.log(cliente);
-        });        
-      }),
-      map((resp:any) => {
-        (resp.content as IClient[]).forEach(cliente=>{
-          cliente.fullName = cliente.fullName.toUpperCase();
-          return cliente;
+  getClients(page:number):Observable<IPage>{
+    return this._http.get(`${environment.url_base}clients/page/${page}`).pipe(
+      map((resp: any) => {
+        (resp.content as IClient[]).map((client) => {
+          client.fullName = client.fullName.toUpperCase();
+          return client;
         });
         return resp;
-      }),
-      tap((resp:any)=>{
-        (resp.content as IClient[]).forEach(cliente =>{
-          console.log(cliente.fullName);
-        })
       })
-     );
+    );
+
   }
 
+
+
   findClientById(id:number):Observable<IClient>{
-    return this._http.get<IClient>(`${environment.url_base}client/${id}`).pipe(
+    return this._http.get<IClient>(`${environment.url_base}client/${id}`, {headers: this.authorizationHeaders()}).pipe(
       catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=>e);
@@ -50,7 +45,7 @@ export class ClientService {
   }
 
   registerClient(client:IClient):Observable<IClient>{
-    return this._http.post<IClient>(`${environment.url_base}create-client`, client).pipe(
+    return this._http.post<IClient>(`${environment.url_base}clients`, client, {headers: this.authorizationHeaders()}).pipe(
       catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=>e);
@@ -68,8 +63,7 @@ export class ClientService {
   }
 
   updateClient(client:IClient|any):Observable<IClient|any>{
-    const headers = this._getHeaders();
-    return this._http.put<Observable<IClient>>(`${environment.url_base}client/${client.id}`,client , {headers}).pipe(
+      return this._http.put<Observable<IClient>>(`${environment.url_base}client/${client.id}`,client , {headers: this.authorizationHeaders()}).pipe(
       catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=>e);
@@ -88,8 +82,7 @@ export class ClientService {
   }
 
   deleteClient(id:number|any):Observable<IClient|any>{
-    const headers = this._getHeaders();
-    return this._http.delete<Observable<IClient>>(`${environment.url_base}client/${id}`, {headers}).pipe(
+    return this._http.delete<Observable<IClient>>(`${environment.url_base}client/${id}`, {headers: this.authorizationHeaders()}).pipe(
       catchError(e => {
         if(this.isNotAuthorized(e)){
           return throwError(()=>e);
@@ -106,9 +99,14 @@ export class ClientService {
     let formData = new FormData();
     formData.append("archivo",file);
     formData.append("id", id);
-    
+    let httpHeaders = new HttpHeaders();
+    let token = this._auth.getToken;
+    if (token !=null){
+      httpHeaders.append('Authorization', 'Bearer '+token);
+    }
     const req = new HttpRequest('POST', `${environment.url_base}/uploads`, formData, {
-      reportProgress: true
+      reportProgress: true,
+      headers:httpHeaders
     });
 
 
@@ -121,11 +119,7 @@ export class ClientService {
   }
 
   private _getHeaders(): HttpHeaders {
-      return new HttpHeaders({
-       Headers:[
-
-       ]
-    });
+      return new HttpHeaders({'Content-Type' : environment.headers});
   }
 
   private isNotAuthorized(error:any):boolean{
@@ -135,4 +129,35 @@ export class ClientService {
     }
     return false;
   }
+
+  private authorizationHeaders():HttpHeaders{
+    let token = this._auth.getToken;
+    if (token !=null){
+      return this._getHeaders().append('Authorization', 'Bearer ' + token) 
+    }
+    return this._getHeaders();
+  }
+
+
+
+
+   /* .pipe(
+    tap((resp:any) =>{
+      (resp.content as IClient[]).forEach((cliente)=>{
+        console.log(cliente);
+      });        
+    }),
+    map((resp:any) => {
+      (resp.content as IClient[]).map(cliente=>{
+        cliente.fullName = cliente.fullName.toUpperCase();
+        return cliente;
+      });
+      return resp;
+    }),
+    tap((resp:any)=>{
+      (resp.content as IClient[]).forEach(cliente =>{
+        console.log(cliente.fullName);
+      })
+    })
+   );*/
 }

@@ -27,7 +27,7 @@ public class ClientEntity implements Serializable {
 	private Long id;
 
 	@NotEmpty
-	@Size(min = 4, max = 15)
+	@Size(min = 4, max = 150)
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
 

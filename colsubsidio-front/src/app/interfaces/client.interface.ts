@@ -3,7 +3,7 @@ import { IAccount } from "./account.interface";
 export interface IClient{
     id?:number;
     fullName:string;
-    userName:string;
+    userName?:string;
     phone:number;
     address:string;
     password?:string;

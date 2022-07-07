@@ -10,12 +10,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PagesRoutingModule } from './pages-routing.module';
+import { PaginatorComponent } from '../components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ClientComponent,
     HomeComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,

@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ClientComponent } from './client/client.component';
 
+
 const routes:Routes =[
   {
     path:'',
@@ -26,7 +27,7 @@ const routes:Routes =[
         component:ClientComponent
       },
       {
-        path:'client/page/:page',
+        path:'clients/page/:page',
         component:ClientComponent
       }
     ]
