@@ -32,12 +32,12 @@
           >
         </li>
         
-          <li class="nav-item dropdown" style="margin-right: 150px" *ngIf="_auth.isAuthenticated();">
+          <li class="nav-item dropdown" style="margin-right: 150px" *ngIf="_auth.isAuthenticated()">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <fa-icon [icon]="faCircleNotch"></fa-icon>
             
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Hola {{_auth?.getCurrentUser?.username}}</a></li>
+              <li class="dropdown-item">Hola {{_auth.getCurrentUser.fullname}}</li>
               <li><a class="dropdown-item" href="#">Editar Informacion</a></li>
               <li><a class="dropdown-item" (click)="logout()">Salir</a></li>
             </ul>

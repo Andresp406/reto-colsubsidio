@@ -13,8 +13,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
   from: number;
   to: number;
 
-  constructor() { }
-
   ngOnInit() {
     this.initPaginator();
   }

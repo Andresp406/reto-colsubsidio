@@ -54,25 +54,13 @@
             </app-validations-errors>
         </div>
 
-        <div class="mb-2 mt-5" style="height: 50px">
+        <div class="mb-2 mt-5" style="height: 50px" >
             <input
-              type="text"
-              class="form-control exo text-field shadow-none"
-              formControlName="userName"
-              aria-describedby="userName"
-
-            />
-            <app-validations-errors class="mt-2 mb-2" [forma]="forma" formControlLabel="userName" [minlenght]=3>
-            </app-validations-errors>
-        </div>
-
-        <div class="mb-2 mt-5" style="height: 50px">
-            <input
-              type="password"
+              [disabled]="true"
+              type="password" 
               class="form-control exo text-field shadow-none"
               formControlName="password"
               aria-describedby="password"
-              [disabled]=""
             />
           </div>
      

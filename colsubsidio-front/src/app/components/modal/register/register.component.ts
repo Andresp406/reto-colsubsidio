@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
     this.clientService.registerClient(data).subscribe((resp:any)=>{
       Swal.fire({
         icon: 'success',
-        title: `Bienvenido ${data.fullName} ${data.userName}  ${resp.message}`,
+        title: `Bienvenido ${data.fullName.toUpperCase()} ${resp.message}`,
         showConfirmButton: false,
         timer: 1500
       });

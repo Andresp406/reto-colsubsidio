@@ -22,7 +22,7 @@ export class EditClientComponent implements OnInit {
   ngOnInit(): void {
     const data:IClient = {
       fullName:this.client.fullName,
-      userName:this.client.userName,
+      password:this.client.password,
       phone:this.client.phone,
       address:this.client.address,     
     }
@@ -32,8 +32,7 @@ export class EditClientComponent implements OnInit {
 
   setValidationForm(): FormGroup {
     return new FormGroup({
-      fullName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      userName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
+      fullName: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(150)]),
       phone: new FormControl(null, [Validators.required]),
       address: new FormControl(null, [Validators.required]),
       password: new FormControl(null)
@@ -44,10 +43,10 @@ export class EditClientComponent implements OnInit {
   onSubmit(): void {
     const data: IClient = {
       id: this.client.id,
-      fullName: this.forma.get('firstName')?.value,
-      userName: this.forma?.get('lastName')?.value,
+      fullName: this.forma.get('fullName')?.value,
       phone: this.forma?.get('phone')?.value,
-      address: this.forma?.get('address')?.value,     
+      address: this.forma?.get('address')?.value,
+      password:this.forma?.get('password')?.value     
     };
     Swal.fire({
       title: 'Desea guardar los cambios?',

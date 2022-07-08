@@ -22,6 +22,7 @@ export class ClientComponent implements OnInit {
               private _activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this._spinner.show();
     this._activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
 
@@ -35,14 +36,9 @@ export class ClientComponent implements OnInit {
   }
 
   public getClients(page:number):void{
-    this._spinner.show();
+    
 
-    this._clientService.getClients(page)
-    .pipe(
-      tap((response:IPage) => {
-        (response.content as IClient[]).forEach(cliente => console.log(cliente.fullName));
-      })
-    ).subscribe((response:IPage) => {
+    this._clientService.getClients(page).subscribe((response:IPage) => {
       this.clients = response.content as IClient[];
       this.paginator = response;
       this._spinner.hide();
@@ -53,7 +49,7 @@ export class ClientComponent implements OnInit {
   public deleteClient(client:IClient):void{  
     Swal.fire({
       title: 'Esta seguro?',
-      text: `Desea eliminar al cliente ${client.userName}`,
+      text: `Desea eliminar al cliente ${client.fullName}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -65,7 +61,7 @@ export class ClientComponent implements OnInit {
           this.clients = this.clients.filter(cli => cli !== client); 
           Swal.fire(
             'Eliminado!',
-            'El estudiante ha sido eliminado con exito.',
+            'El cliente ha sido eliminado con exito.',
             'success'
           );  
         });

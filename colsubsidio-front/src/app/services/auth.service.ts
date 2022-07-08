@@ -15,7 +15,9 @@ export class AuthService {
 
   constructor(
     private _http: HttpClient,
-  ) { }
+  ) {
+    this._user;
+   }
 
   get getToken(): string {
     if (this._token!=null){
@@ -27,13 +29,12 @@ export class AuthService {
   }
 
   get getCurrentUser(): User  {
-    if (this._user != null || this._user == undefined){
+    if (this._user != null){
       return this._user;
     }else if((this._user == null || this._user == undefined) && localStorage.getItem('user') != null){
-      this._token = localStorage.getItem('user');
-      return this._user;
+      return JSON.parse(localStorage.getItem('user')) as User;     
     }
-    return new User();
+     return new User();
   }
 
   get currentID(): number  {

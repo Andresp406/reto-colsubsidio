@@ -10,7 +10,7 @@ export class ShowDetailsClientComponent implements OnInit {
   @Input() client!:IClient;
   @Input() exam!:IAccount;
   @Output() cerrarModal = new EventEmitter<boolean>();
-  title:string='Informacion del Estudiante';
+  title:string='Informacion del cliente';
   resp:any[] = [];
   account:IAccount[]=[];
   movement:IMovement[]=[];

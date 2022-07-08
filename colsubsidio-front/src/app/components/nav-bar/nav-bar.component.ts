@@ -9,16 +9,12 @@ import Swal from 'sweetalert2';
     templateUrl: 'nav-bar.component.html',
 
 })
-export class NavBarComponent implements OnInit{
+export class NavBarComponent{
     title:string = 'Colsubsidio front';
     faCircleNotch=faUserCircle;
-    
+     
     constructor(public _auth:AuthService, private _router:Router){
       
-    }
-
-    ngOnInit():void{
-        this._auth.isAuthenticated();
     }
 
     logout(){
